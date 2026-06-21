@@ -20,9 +20,9 @@ public class StringProblems {
 		// we are making split twice so we can make it once as below
 		String[] words = s1.split(" ");
 		int maxLength = Arrays.stream(words).mapToInt(str -> str.length()).max().getAsInt();
-		List<String> maxLengthStrings = Stream.of(words).filter(str -> str.length() == maxLength)
+		List<String> maxLengthStrings = Arrays.stream(words).filter(str -> str.length() == maxLength)
 				.collect(Collectors.toList());
-		System.out.println(maxLengthStrings);
+		System.out.println("anil = "+maxLengthStrings);
 	}
 	/*
 	 * 7. Remove Duplicate Characters: Given a string, remove duplicate characters
@@ -66,7 +66,7 @@ public class StringProblems {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		List<String> list = Arrays.asList("apple", "grape", "mango", "peach", "berry");
-		String s1 = "anil chinna vemula";
+		String s1 = "anil chinna vemua";
 		StringProblems sp = new StringProblems();
 		sp.usingStreams(list);
 		sp.findLongestWordInString(s1);

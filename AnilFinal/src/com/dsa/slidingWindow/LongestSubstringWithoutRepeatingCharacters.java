@@ -15,7 +15,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
 		int start = 0;
 		int subStringLength = 0;
 		int maxValue = 0;
-		int bestStart = 0;
+		//int bestStart = 0;
 		Set<Character> storeCharSet = new HashSet<>();
 		char[] charArray = s.toCharArray();
 		for (int i = 0; i < slen; i++) {
@@ -41,10 +41,10 @@ public class LongestSubstringWithoutRepeatingCharacters {
 			// maxValue = Math.max(maxValue, subStringLength);
 			if (subStringLength > maxValue) {
 				maxValue = subStringLength;
-				bestStart = start;
+				//bestStart = start;
 			}
 		}
-		System.out.println("we are printing the that substring also = " + s.substring(bestStart, bestStart + maxValue));
+		//System.out.println("we are printing the that substring also = " + s.substring(bestStart, bestStart + maxValue));
 		System.out.println("the max length of substring nonrepeating chars = " + maxValue);
 	}
 

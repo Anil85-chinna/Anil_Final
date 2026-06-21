@@ -1,8 +1,9 @@
 package com.streams.strings;
 
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -86,6 +87,7 @@ public class Top25FrequentlyAskedStringQuestion {
 	public void usingStreamsForReverseString(String s) {
 		String reversedString = IntStream.range(0, s.length())
 				.mapToObj(i -> String.valueOf(s.charAt(s.length() - 1 - i))).collect(Collectors.joining());
+		// .reduse("",(a,b)-> a+b);
 		System.out.println("we reversed the string using streams= " + reversedString);
 	}
 
@@ -115,10 +117,10 @@ public class Top25FrequentlyAskedStringQuestion {
 
 	public void removingSpaceWithLoop(String s) {
 		char[] ch = s.toCharArray();
-		String outputString = "";
+		StringBuffer outputString = new StringBuffer();
 		for (char c : ch) {
 			if (c != ' ' && c != '\t') {
-				outputString = outputString + String.valueOf(c);
+				outputString = outputString.append(String.valueOf(c));
 			}
 		}
 		System.out.println("string with out spaces are " + outputString);
@@ -152,15 +154,17 @@ public class Top25FrequentlyAskedStringQuestion {
 	// 8) Write a Java program to check whether one string is a rotation of another?
 	public void rotationOfOtherString(String s1, String s2) {
 		System.out.println("8) Write a Java program to check whether one string is a rotation of another?");
-		if (s1 == null || s2 == null) {
-			return;
-		}
-		if (s1.length() != s2.length()) {
-			return;
-		}
-		String s3 = s1 + s2;
+//		if (s1 == null || s2 == null) {
+//			return;
+//		}
+//		if (s1.length() != s2.length()) {
+//			return;
+//		}
+		String s3 = s1 + s1;
 		if (s3.contains(s2)) {
 			System.out.println("the second string is rotation of first string");
+		} else {
+			System.out.println("nothing");
 		}
 	}
 
@@ -220,6 +224,67 @@ public class Top25FrequentlyAskedStringQuestion {
 		System.out.println("using streams =" + reversedString);
 	}
 
+	// code for showing string is immutable
+	public void immutableString() {
+		String str = "anil";
+		System.out.println(System.identityHashCode(str));
+		str.concat("vemula");
+		System.out.println(str);
+		String str1 = str.concat("second");
+		System.out.println(str1);
+		System.out.println(System.identityHashCode(str1));
+	}
+
+	// removing the leading zeros from the given string
+	public void usingTwoPointers() {
+		String str = "00000";
+		int start = 0;
+		for (int i = 0; i < str.length(); i++) {
+			if (str.charAt(start) == '0') {
+				start++;
+			}
+		}
+		System.out.println("the start value is " + start + "the length of string" + str.length());
+		System.out.println("the word after removing the leading zeros = " + str.substring(start));
+	}
+	// input: aabbccdd
+	// output: a2b2c2d2
+
+	public void countOfEachCharinString() {
+		String str = "aabbccdde";
+		int count = 1;
+		StringBuffer result = new StringBuffer();
+		int strLen = str.length() - 1;
+		for (int i = 0; i < strLen; i++) {
+			if (str.charAt(i) != str.charAt(i + 1)) {
+				result.append(str.charAt(i)).append(count);
+				count = 1;
+			} else {
+				count++;
+			}
+		}
+		result.append(str.charAt(strLen)).append(count);
+		System.out.println("the output string is = " + result);
+	}
+
+	// Count the number of matching character in the pair of the string ?
+	public int countOfMatchingCharinGivenPairOfStrings() {
+		String str1 = "anil";
+		String str2 = "chinna";
+		int count = 0;
+		Set<Character> charsSet = new HashSet<>();
+		for (char ch : str1.toCharArray()) {
+			charsSet.add(ch);
+		}
+		for (char ch2 : str2.toCharArray()) {
+			if (charsSet.contains(ch2)) {
+				count++;
+				charsSet.remove(ch2);
+			}
+		}
+		return count;
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String strWithDuplicateWords = "Java is powerful and Java is scalable and Java is widely used in enterprise applications";
@@ -238,10 +303,15 @@ public class Top25FrequentlyAskedStringQuestion {
 		t25.removingSpaceWithLoop(strWithDuplicateWords);
 		t25.duplicateCharsInString(strWithDuplicateWords);
 		String s1 = "anil";
-		String s2 = "lina";
+		String s2 = "ila";
 		t25.rotationOfOtherString(s1, s2);
 		t25.usingTwoPointerApprochReverseStringWithMaintainSpace("1 22 333 4444 55555");
 		t25.reverseEachWordInGivenString("Reverse Me");
 		t25.usingStreamReverseEachWordInGivenString("I am string not reversed");
+		t25.immutableString();
+		t25.usingTwoPointers();
+		t25.countOfEachCharinString();
+		System.out.println("the count of matching chars in given pair of strings = "
+				+ t25.countOfMatchingCharinGivenPairOfStrings());
 	}
 }
