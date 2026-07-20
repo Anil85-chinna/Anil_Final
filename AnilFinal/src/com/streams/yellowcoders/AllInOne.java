@@ -154,6 +154,8 @@ public class AllInOne {
 		System.out.println("now sorting the map by its values");
 		Map<String, Integer> mapAfterSort = stringWithLength.entrySet().stream().sorted(Map.Entry.comparingByValue())
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+		//internally it works like:  (e1, e2) -> e1.getValue().compareTo(e2.getValue())
+		//entry -> entry.getKey()
 		System.out.println(mapAfterSort);
 		System.out.println(" Flatten a list of lists of integers into a single list of integers ?");
 		List<List<Integer>> listOfLists = Arrays.asList(

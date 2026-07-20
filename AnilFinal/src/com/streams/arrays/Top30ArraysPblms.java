@@ -45,7 +45,7 @@ public class Top30ArraysPblms {
 		 */
 	}
 
-	// given list of integer i need od and even using partitionby
+	// given list of integer i need odd and even using partitionby
 	public void usingPartitionForOddAndEven() {
 		List<Integer> ar = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
 		Map<Boolean, List<Integer>> result = ar.stream()
@@ -61,7 +61,7 @@ public class Top30ArraysPblms {
 		System.out.println("the sum of array is = " + sum);
 	}
 
-	// find the max element in array using resuce
+	// find the max element in array using reduce
 	public void maxElement() {
 		int[] ar = { 1, 9, 3, 5, 4, 7, 8, 2, 6 };
 		int maxValue = Arrays.stream(ar).reduce((a, b) -> a > b ? a : b).getAsInt();
@@ -315,6 +315,87 @@ public class Top30ArraysPblms {
 		System.out.println(large);
 	}
 
+	public void largestElementInArray() {
+		int[] ar = { 1, 2, 6, 9 };
+
+		if (ar.length == 0) {
+			return;
+		}
+		int largestElement = ar[0];
+		for (int num : ar) {
+			if (largestElement < num) {
+				largestElement = num;
+			}
+		}
+		System.out.println("the largest number in given array = " + largestElement);
+	}
+
+	public void secondLargestElement() {
+		int[] ar = { 5, 5, 5, 5 };
+		if (ar == null || ar.length < 2) {
+			return;
+		}
+		int flElement = Integer.MIN_VALUE;
+		int slElement = Integer.MIN_VALUE;
+
+		for (int num : ar) {
+			if (flElement < num) {
+				slElement = flElement;
+				flElement = num;
+			} else if (slElement < num && num != flElement) {
+				slElement = num;
+			}
+		}
+		if (slElement == Integer.MIN_VALUE) {
+			System.out.println("Second largest doesn't exist");
+		} else {
+			System.out.println("Second Largest = " + slElement);
+		}
+	}
+
+	// Move zeros to end
+	public void moveZerosToEnd() {
+		int[] ar = {};
+		int startIndex = 0;
+		if (ar == null || ar.length == 0) {
+			return;
+		}
+		for (int i = 0; i < ar.length; i++) {
+			if (ar[i] != 0) {
+				ar[startIndex] = ar[i];
+				startIndex++;
+			}
+		}
+		while (startIndex < ar.length) {
+			ar[startIndex] = 0;
+			startIndex++;
+		}
+		for (int num : ar) {
+			System.out.print(num + " ");
+		}
+	}
+
+	// Leet code version
+	// Move all zeros to the end while maintaining the relative order of non-zero
+	// elements.
+	public void forLeetCodeVersion() {
+		int[] ar = { 0,0,1 };
+		int start = 0;
+		for (int i = 0; i < ar.length; i++) {
+			for (int j = i + 1; j < ar.length; j++) {
+				if (ar[i] == 0 && ar[j] != 0) {
+					int temp = ar[j];
+					ar[j] = ar[i];
+					ar[i] = temp;
+				}
+			}
+		}
+		System.out.println("now solving the leet code problem");
+		for (int num : ar) {
+			System.out.print(num + " ");
+		}
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Top30ArraysPblms tam = new Top30ArraysPblms();
@@ -339,6 +420,10 @@ public class Top30ArraysPblms {
 		tam.sumOfNumberInString();
 		tam.larsetNumber();
 		tam.largenumber();
+		tam.largestElementInArray();
+		tam.secondLargestElement();
+		tam.moveZerosToEnd();
+		tam.forLeetCodeVersion();
 
 	}
 

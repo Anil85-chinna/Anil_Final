@@ -1,7 +1,11 @@
 package com.streams.strings;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -285,6 +289,38 @@ public class Top25FrequentlyAskedStringQuestion {
 		return count;
 	}
 
+	// 121. Find the longest String from a List using Stream API.
+	public void usingStreams(List<String> listStr) {
+		int maxLength = listStr.stream().mapToInt(Str -> Str.length()).max().getAsInt();
+		List<String> output = listStr.stream().filter(ele -> ele.length() == maxLength).collect(Collectors.toList());
+		System.out.println(output + " this is the max length strings");
+		/*
+		 * Solution 1 (Most Preferred)
+		 * 
+		 * Using max() --> in below we are directly getting max length String/ and this
+		 * is the beast one "stream().max() iterates through all elements and keeps
+		 * track of the current maximum element. The comparator created by
+		 * Comparator.comparingInt(String::length) compares strings based on their
+		 * length. For each element, max() invokes the comparator to determine whether
+		 * the current element is longer than the current maximum. After processing all
+		 * elements, it returns an Optional<String> containing the longest string, or
+		 * Optional.empty() if the stream is empty."
+		 */
+		String longString = listStr.stream().max(Comparator.comparingInt(S -> S.length())).orElse(null);
+		System.out.println(longString);
+
+		// Solution 2 (Using Collectors.maxBy())
+		String longSub = listStr.stream().collect(Collectors.maxBy(Comparator.comparingInt(s -> s.length())))
+				.orElse(null);
+		System.out.println(longSub);
+
+		// using reduce
+		String usingReduce = listStr.stream().reduce((s1, s2) -> s1.length() > s2.length() ? s1 : s2).orElse(null);
+		System.out.println(usingReduce);
+		
+
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String strWithDuplicateWords = "Java is powerful and Java is scalable and Java is widely used in enterprise applications";
@@ -313,5 +349,8 @@ public class Top25FrequentlyAskedStringQuestion {
 		t25.countOfEachCharinString();
 		System.out.println("the count of matching chars in given pair of strings = "
 				+ t25.countOfMatchingCharinGivenPairOfStrings());
+		List<String> list = Arrays.asList("Java Spring Boot", "Microservices Kafka Docker", "AWS Kubernetes",
+				"Git Maven Jenkins", "Redis RabbitMQ");
+		t25.usingStreams(list);
 	}
 }

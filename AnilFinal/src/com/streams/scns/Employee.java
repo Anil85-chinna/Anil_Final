@@ -87,6 +87,28 @@ public class Employee {
 						Collectors.minBy(Comparator.comparing(Employee::getSalary)), emp -> emp.get().getName())));
 		System.out.println(deptWiseMinSalary);
 
+//		List<Employee> sortedEmployees = employees.stream().sorted(Comparator
+//				.comparing(Employee::getSalary).reversed().thenComparingInt(Employee::getDepartment))
+//				.collect(Collectors.toList());
+//
+//		sortedEmployees.forEach(System.out::println);
+
+		/*
+		 * 2) Sort a list of employees: ->Salary in descending order. If salary is the
+		 * same, Experience in ascending order
+		 * 
+		 */
+		List<Employee> output = employees.stream()
+				.sorted(Comparator.comparingDouble(Employee::getSalary).reversed().thenComparingInt(Employee::getAge))
+				.collect(Collectors.toList());
+
+		System.out.println("the result is = " + output);
+		/*
+		 * ): Given a list of Employee objects, use Java 8 Streams to group them by
+		 * department and find the highest salary in each department (Using
+		 * Collectors.groupingBy and Collectors.maxBy).
+		 */
+
 	}
 
 }
